@@ -5,18 +5,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/upcoming.css') }}">
 </head>
 <body>
-    <h2>🔧 Upcoming Maintenance for {{ car['custom_name'] }}</h2>
 
-    {% if due_list %}
-        <ul>
-            {% for item in due_list %}
-                <li>{{ item }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No upcoming maintenance tasks recorded yet.</p>
-    {% endif %}
+<a class="back-link" href="{{ url_for('events.index', car_id=car['id']) }}">← Back to Vehicle Log</a>
 
-    <a href="{{ url_for('events.index', car_id=car['id']) }}">🔙 Back to Events</a>
+<h2>📅 Upcoming Maintenance</h2>
+<p class="subtitle">{{ car['custom_name'] }} — {{ car['make'] }} {{ car['model'] }}</p>
+
+{% if due_list %}
+    <ul>
+        {% for item in due_list %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="empty">
+        <div class="empty-icon">✅</div>
+        <p>No upcoming maintenance tasks recorded yet.<br>Add some events to see due dates here.</p>
+    </div>
+{% endif %}
+
 </body>
 </html>

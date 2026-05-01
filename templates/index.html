@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Car Events Tracker</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    </head>
+<head>
+    <title>Car Events Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
 <body>
-<h2>🚗 Car Events Tracker</h2>
 
+<a class="back-link" href="{{ url_for('cars.start') }}">← Main Menu</a>
+
+<h2>🚗 Vehicle Log</h2>
+
+<!-- Add event form -->
 <form action="/add" method="post" enctype="multipart/form-data">
-    <input type="text" id="datePicker" name="date" placeholder="Select Date" required>
-    <input type="text" name="mileage" placeholder="Mileage (e.g., 127.900)" required>
+    <div class="form-row">
+        <input type="text" id="datePicker" name="date" placeholder="Select date" required>
+        <input type="text" name="mileage" placeholder="Mileage (e.g. 127.900)" required>
+    </div>
 
     <div class="checkboxes">
         <label><input type="checkbox" name="tasks" value="Oil service"> Oil service</label>
@@ -29,40 +35,54 @@
         <label><input type="checkbox" name="tasks" value="EU control"> EU control</label>
     </div>
 
-    <textarea name="description" placeholder="Extra details..."></textarea>
-    <input type="file" name="photo">
-    <button>Add Event</button>
+    <textarea name="description" placeholder="Extra notes…"></textarea>
+    <input type="file" name="photo" accept="image/*">
+    <button>+ Add Event</button>
 </form>
-<a href="{{ url_for('events.upcoming') }}">📅 See Upcoming Maintenance</a>
 
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Mileage (km)</th>
-        <th>Description</th>
-        <th>Photo</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    {% for event in events %}
-    <tr>
-        <td>{{ event['date'] }}</td>
-        <td>{{ event['mileage'] }}</td>
-        <td>{{ event['description'] }}</td>
-        <td>
-        {% if event['photo'] %}
-            <img src="{{ url_for('static', filename='uploads/' + event['photo']) }}" onclick="showOverlay(this.src)">
-        {% else %}No photo{% endif %}
-        </td>
-        <td><a href="{{ url_for('events.edit', id=event['id']) }}">✏️</a></td>
-        <td><a href="{{ url_for('events.delete', id=event['id']) }}">🗑️</a></td>
-    </tr>
-    {% endfor %}
-</table>
+<!-- Quick actions -->
+<div class="actions-bar">
+    <a class="btn btn-secondary" href="{{ url_for('events.upcoming') }}">📅 Upcoming Maintenance</a>
+</div>
 
+<!-- Events table -->
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Mileage (km)</th>
+                <th>Description</th>
+                <th>Photo</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event['date'] }}</td>
+                <td>{{ event['mileage'] }}</td>
+                <td>{{ event['description'] }}</td>
+                <td>
+                    {% if event['photo'] %}
+                        <img src="{{ url_for('static', filename='uploads/' + event['photo']) }}" onclick="showOverlay(this.src)" alt="photo">
+                    {% else %}—{% endif %}
+                </td>
+                <td><a class="action-link edit" href="{{ url_for('events.edit', id=event['id']) }}" title="Edit">✏️</a></td>
+                <td><a class="action-link del" href="{{ url_for('events.delete', id=event['id']) }}" title="Delete" onclick="return confirm('Delete this event?')">🗑️</a></td>
+            </tr>
+            {% else %}
+            <tr class="empty-row"><td colspan="6">No events recorded yet. Add the first one above.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Lightbox -->
 <div id="overlay" onclick="hideOverlay()">
-    <span>&times;</span>
-    <img id="overlay-img">
+    <span onclick="hideOverlay()">&times;</span>
+    <img id="overlay-img" alt="full size photo">
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -74,7 +94,6 @@ function showOverlay(src) {
 function hideOverlay() {
     document.getElementById('overlay').style.display = 'none';
 }
-
 flatpickr("#datePicker", { dateFormat: "Y-m-d" });
 </script>
 </body>

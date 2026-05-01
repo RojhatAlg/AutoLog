@@ -1,55 +1,103 @@
-/* Global Styles */
+:root {
+    --primary:      #3b82f6;
+    --primary-dark: #2563eb;
+    --warning:      #f59e0b;
+    --bg:           #f0f4f8;
+    --card:         #ffffff;
+    --text:         #1e293b;
+    --muted:        #64748b;
+    --border:       #e2e8f0;
+    --radius:       10px;
+    --shadow:       0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f4f7fa;
-    color: #333;
-    padding: 20px;
-    margin: auto;
-    max-width: 800px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px 20px 48px;
+    max-width: 680px;
+    margin: 0 auto;
 }
 
-/* Heading */
-h2 {
-    text-align: center;
+/* ── Back nav ─────────────────────────────────── */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #3b82f6;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
-/* List of Maintenance Tasks */
+.back-link:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+/* ── Page title ──────────────────────────────── */
+h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+}
+
+/* ── Task list ───────────────────────────────── */
 ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 ul li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    font-size: 18px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--warning);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    box-shadow: var(--shadow);
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
-/* Fallback paragraph if no tasks */
-p {
-    font-size: 18px;
+ul li::before {
+    content: '🔧';
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* ── Empty state ─────────────────────────────── */
+.empty {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 40px 24px;
     text-align: center;
-    color: #666;
+    color: var(--muted);
+    font-size: 1rem;
 }
 
-/* Back Link */
-a {
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #3b82f6;
-    font-size: 18px;
-    text-align: center;
-}
-
-a:hover {
-    text-decoration: underline;
+.empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
 }

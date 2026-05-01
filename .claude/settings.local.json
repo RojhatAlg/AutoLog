@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(env/Scripts/python.exe -c \"from app import create_app; app = create_app\\(\\); print\\('OK — routes:', [str\\(r\\) for r in app.url_map.iter_rules\\(\\)]\\)\")",
-      "Bash(grep -n \"url_for\" e:/Coding/auto_parts_tracker/templates/*.html)"
+      "Bash(grep -n \"url_for\" e:/Coding/auto_parts_tracker/templates/*.html)",
+      "Bash(env/Scripts/python.exe -c \"from app import create_app; app = create_app\\(\\); print\\('OK'\\)\")"
     ]
   }
 }

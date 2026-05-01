@@ -6,94 +6,59 @@
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 </head>
 <body>
-<h2>✏️ Edit Car Event</h2>
-<form method="post" enctype="multipart/form-data">
-    <input type="date" id="datePicker" name="date" value="{{ event['date'] }}" required>
-    <input type="text" name="mileage" value="{{ event['mileage'] }}" required>
 
-    <div class="checkboxes">
-        <label>
-            <input type="checkbox" name="tasks" value="Oil service"
-            {% if "Oil service" in selected_tasks %}checked{% endif %}>
-            Oil service
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Diesel filter"
-            {% if "Diesel filter" in selected_tasks %}checked{% endif %}>
-            Diesel filter
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Brake pads front"
-            {% if "Brake pads front" in selected_tasks %}checked{% endif %}>
-            Brake pads front
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Brake pads rear"
-            {% if "Brake pads rear" in selected_tasks %}checked{% endif %}>
-            Brake pads rear
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Brake disc front"
-            {% if "Brake disc front" in selected_tasks %}checked{% endif %}>
-            Brake disc front
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Brake disc rear"
-            {% if "Brake disc rear" in selected_tasks %}checked{% endif %}>
-            Brake disc rear
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Brake fluid"
-            {% if "Brake fluid" in selected_tasks %}checked{% endif %}>
-            Brake fluid
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Micro filter"
-            {% if "Micro filter" in selected_tasks %}checked{% endif %}>
-            Micro filter
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Coupe filter"
-            {% if "Coupe filter" in selected_tasks %}checked{% endif %}>
-            Coupe filter
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Air filter"
-            {% if "Air filter" in selected_tasks %}checked{% endif %}>
-            Air filter
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Glow plugs"
-            {% if "Glow plugs" in selected_tasks %}checked{% endif %}>
-            Glow plugs
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="Vehicle inspection"
-            {% if "Vehicle inspection" in selected_tasks %}checked{% endif %}>
-            Vehicle inspection
-        </label>
-        <label>
-            <input type="checkbox" name="tasks" value="EU control"
-            {% if "EU control" in selected_tasks %}checked{% endif %}>
-            EU control
-        </label>
+<a class="back-link" href="{{ url_for('events.index', car_id=session.get('car_id')) }}">← Back to Vehicle Log</a>
+
+<h2>✏️ Edit Event</h2>
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="form-row">
+        <div>
+            <span class="field-label">Date</span>
+            <input type="date" id="datePicker" name="date" value="{{ event['date'] }}" required>
+        </div>
+        <div>
+            <span class="field-label">Mileage (km)</span>
+            <input type="text" name="mileage" value="{{ event['mileage'] }}" required>
+        </div>
     </div>
 
-    <!-- Separate textarea for manual notes -->
-    <textarea name="manual_note" placeholder="Additional notes...">{{ manual_note }}</textarea>
-    <input type="file" name="photo">
-    <button>Save Changes</button>
+    <div>
+        <span class="section-label">Maintenance Tasks</span>
+        <div class="checkboxes" style="margin-top: 10px;">
+            <label><input type="checkbox" name="tasks" value="Oil service"        {% if "Oil service"        in selected_tasks %}checked{% endif %}> Oil service</label>
+            <label><input type="checkbox" name="tasks" value="Diesel filter"      {% if "Diesel filter"      in selected_tasks %}checked{% endif %}> Diesel filter</label>
+            <label><input type="checkbox" name="tasks" value="Brake pads front"   {% if "Brake pads front"   in selected_tasks %}checked{% endif %}> Brake pads front</label>
+            <label><input type="checkbox" name="tasks" value="Brake pads rear"    {% if "Brake pads rear"    in selected_tasks %}checked{% endif %}> Brake pads rear</label>
+            <label><input type="checkbox" name="tasks" value="Brake disc front"   {% if "Brake disc front"   in selected_tasks %}checked{% endif %}> Brake disc front</label>
+            <label><input type="checkbox" name="tasks" value="Brake disc rear"    {% if "Brake disc rear"    in selected_tasks %}checked{% endif %}> Brake disc rear</label>
+            <label><input type="checkbox" name="tasks" value="Brake fluid"        {% if "Brake fluid"        in selected_tasks %}checked{% endif %}> Brake fluid</label>
+            <label><input type="checkbox" name="tasks" value="Micro filter"       {% if "Micro filter"       in selected_tasks %}checked{% endif %}> Micro filter</label>
+            <label><input type="checkbox" name="tasks" value="Coupe filter"       {% if "Coupe filter"       in selected_tasks %}checked{% endif %}> Coupe filter</label>
+            <label><input type="checkbox" name="tasks" value="Air filter"         {% if "Air filter"         in selected_tasks %}checked{% endif %}> Air filter</label>
+            <label><input type="checkbox" name="tasks" value="Glow plugs"         {% if "Glow plugs"         in selected_tasks %}checked{% endif %}> Glow plugs</label>
+            <label><input type="checkbox" name="tasks" value="Vehicle inspection" {% if "Vehicle inspection" in selected_tasks %}checked{% endif %}> Vehicle inspection</label>
+            <label><input type="checkbox" name="tasks" value="EU control"         {% if "EU control"         in selected_tasks %}checked{% endif %}> EU control</label>
+        </div>
+    </div>
+
+    <div>
+        <span class="field-label">Additional Notes</span>
+        <textarea name="manual_note" placeholder="Extra details…">{{ manual_note }}</textarea>
+    </div>
+
+    <div>
+        <span class="field-label">Replace Photo (optional)</span>
+        <input type="file" name="photo" accept="image/*">
+    </div>
+
+    <button>💾 Save Changes</button>
 </form>
-<a href="{{ url_for('events.index', car_id=session.get('car_id')) }}">🔙 Back to events</a>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-flatpickr("#datePicker", {
-    dateFormat: "Y-m-d",
-    allowInput: true,
-    static: false,
-    position: "auto"
-});
+flatpickr("#datePicker", { dateFormat: "Y-m-d", allowInput: true });
 </script>
 </body>
 </html>
