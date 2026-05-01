@@ -3,8 +3,14 @@ env/
 __pycache__/
 *.py[cod]
 
-# Database
-*.db
+# Databases (kept in instance/, excluded from git)
+instance/
+
+# Secrets
+.env
+
+# Uploads
+static/uploads/
 
 # VS Code
 .vscode/

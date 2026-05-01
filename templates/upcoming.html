@@ -17,6 +17,6 @@
         <p>No upcoming maintenance tasks recorded yet.</p>
     {% endif %}
 
-    <a href="{{ url_for('index', car_id=car['id']) }}">🔙 Back to Events</a>
+    <a href="{{ url_for('events.index', car_id=car['id']) }}">🔙 Back to Events</a>
 </body>
 </html>
