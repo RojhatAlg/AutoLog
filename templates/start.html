@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Select Car</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+<h2>Select or Create Vehicle</h2>
+
+<h3>Select Existing Car</h3>
+<form action="/select_car" method="post">
+    <select name="car_id" required>
+        {% for car in cars %}
+            <option value="{{ car['id'] }}">{{ car['custom_name'] }} ({{ car['make'] }} {{ car['model'] }})</option>
+        {% endfor %}
+    </select>
+    <button>Select Car</button>
+</form>
+
+<h4>Delete Existing Car</h4>
+<ul>
+    {% for car in cars %}
+    <li>
+        {{ car['custom_name'] }} ({{ car['make'] }} {{ car['model'] }})
+        <a href="{{ url_for('delete_car', car_id=car['id']) }}" onclick="return confirm('Are you sure?');">🗑️ Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<h3>Register New Car</h3>
+<form action="/new_car" method="post">
+    <select name="vehicle_id" required>
+        {% for vehicle in vehicles %}
+            <option value="{{ vehicle['id'] }}">{{ vehicle['make'] }} {{ vehicle['model'] }}</option>
+        {% endfor %}
+    </select>
+    <input type="text" name="custom_name" placeholder="Your car's name or plate" required>
+    <button>Create Car</button>
+</form>
+</body>
+</html>

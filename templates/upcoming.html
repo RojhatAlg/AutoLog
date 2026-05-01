@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Upcoming Maintenance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upcoming.css') }}">
+</head>
+<body>
+    <h2>🔧 Upcoming Maintenance for {{ car['custom_name'] }}</h2>
+
+    {% if due_list %}
+        <ul>
+            {% for item in due_list %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No upcoming maintenance tasks recorded yet.</p>
+    {% endif %}
+
+    <a href="{{ url_for('index', car_id=car['id']) }}">🔙 Back to Events</a>
+</body>
+</html>

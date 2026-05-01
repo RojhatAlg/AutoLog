@@ -1,0 +1,55 @@
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    padding: 20px;
+    margin: auto;
+    max-width: 800px;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #3b82f6;
+}
+
+/* List of Maintenance Tasks */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Fallback paragraph if no tasks */
+p {
+    font-size: 18px;
+    text-align: center;
+    color: #666;
+}
+
+/* Back Link */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #3b82f6;
+    font-size: 18px;
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: underline;
+}
